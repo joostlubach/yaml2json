@@ -4,18 +4,12 @@
   "description": "Convert from YAML to JSON.",
   "private": true,
   "author": "Joost Lubach <joostlubach@gmail.com>",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/types/index.d.ts",
+  "main": "./src/index.ts",
   "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.js",
-      "default": "./dist/cjs/index.js"
-    }
+    ".": "./src/index.ts"
   },
   "bin": {
-    "yaml2json": "./dist/cjs/bin.js"
+    "yaml2json": "./src/bin.ts"
   },
   "scripts": {
     "build": "pnpm clean && pnpm build:tsc",
@@ -37,7 +31,8 @@
     "typescript": "5.4.3"
   },
   "dependencies": {
-    "glob-promise": "^6.0.5",
+    "chokidar": "^3.6.0",
+    "glob": "^11.0.0",
     "yargs": "^17.7.2"
   }
 }

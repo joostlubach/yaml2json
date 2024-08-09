@@ -12,12 +12,23 @@ args.command('$0 <directory_in> <directory_out>', 'Convert YAML files to JSON', 
   yargs.positional('directory_out', {
     describe: 'Output directory',
   })
+  yargs.option('--watch', {
+    alias:    'w',
+    type:     'boolean',
+    describe: 'Watch for changes',
+  })
 }, args => {
-  yaml2json(args.directory_in as string, args.directory_out as string).then(
-    () => process.exit(0),
-    (error) => {
-      console.error(error)
-      process.exit(1)
-    },
-  )
+  const promise = yaml2json(args.directory_in as string, args.directory_out as string, {
+    watch: args.watch as boolean,
+  })
+  
+  if (!args.watch) {
+    promise.then(
+      () => process.exit(0),
+      (error) => {
+        console.error(error)
+        process.exit(1)
+      }
+    )
+  }
 }).parse()
